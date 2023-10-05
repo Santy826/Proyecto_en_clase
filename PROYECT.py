@@ -19,15 +19,32 @@ def _add_comma():
     global clients
     clients += ", "
     
-def read_cliente(): #Function for read client
-    pass
-def update_cliente(): #Function Update Client
-    
-    pass
-def delete_cliente(): #Function Delete Client
-    global clients
+def read_cliente(client_name): #Function for read client
+    global clients 
+    if client_name in clients:  
+        print(f'The name is,{client_name}')
+    else:
+        print('The name not available')
 
-    pass
+def update_cliente(client_name,update_name): #Function Update Client
+    global clients
+    if client_name in clients:
+        clients = clients.replace(client_name + ",",update_name+",")
+    else:
+        print("Error103")
+    
+    
+def delete_cliente(client_name): #Function Delete Client
+    global clients
+    if client_name in clients:
+        # Remove the client name and the trailing comma
+        clients = clients.replace(client_name + ",", "")
+        print(f"Deleted {client_name}")
+    else:
+        print("Client not found") 
+
+
+    
 def  _get_client_name(): #Function Get Client y permite preguntar por el nombre del cliente 
 
     return input("Enter your name: ").upper()
@@ -59,13 +76,16 @@ if __name__ == '__main__':
         list_clients()
     elif option == 'R':
         client_name = _get_client_name()
+        read_cliente(client_name)
         list_clients()
     elif option == 'U':
-        client_name = _get_client_name()
-        client_name_update = _get_client_name()
+        #client_name = _get_client_name()
+        update_name = input("Which is the update client name:")
+        update_cliente(update_name)
         print(clients)
     elif option == 'D':
         client_name = _get_client_name()
+        delete_cliente(client_name)
         list_clients()
     else:
          print("Invalid command")
